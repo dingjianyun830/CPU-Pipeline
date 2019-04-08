@@ -312,19 +312,26 @@ bool PreMainCode(vector<string> MainCodeRecord)
 	return 1;
 }
 
+
+int Total_Cycle = 4;
+int Total_inst = 0;
+int Total_miss = 0;
+
 void FiveStage()
 {
 	int Record_Count = MainCodeRecord.size();
-	int count = 0;
-	int Total_Cycle = 4;
-	int inst_count = 0;
 	// prepare: copy the cache from the memory
-
+	int count = 0;
 	while (count < Record_Count)
 	{
-		inst_count++;
+		Total_inst++;
 		cout << MainCodeRecord[count] << endl;
 		int c = Instructions[count].Process(Register, Memory, Cache);
+		if (Instructions[count].hit == false)
+		{
+			Total_miss = Total_miss + 1;
+		}
+
 		if (Instructions[count].ErrorOccur == true)
 		{
 			break;// meet the occur, the program terminate.
@@ -341,14 +348,12 @@ void FiveStage()
 
 		Total_Cycle = Total_Cycle + c;
 	}
-	cout << "The whole cycles of the code is " << Total_Cycle << endl;
-	cout << "The whole number of the instruction is " << inst_count << endl;
 }
 
 int main()
 {
 	// read the file to load the instruction
-	string m_nFileName = "test4.txt";
+	string m_nFileName = "test1.txt";
 	ifstream m_nFp(m_nFileName);
 	if (!m_nFp.is_open())
 	{
@@ -420,7 +425,11 @@ int main()
 	}
 
 	// Print the statistical values
-
+	cout << "The Total number of Instructions executed: " << Total_inst << endl;
+	cout << "The Total number of Cycles: " << Total_Cycle << endl;
+	cout << "The Average of the cycle per instructions: " << (double)Total_Cycle/Total_inst << endl;
+	cout << "The Total number of Misses: " << Total_miss << endl;
+	cout << "The Average of the misses per instructions: " << (double)Total_miss / Total_inst << endl;
 	// close the file
 	m_nFp.close();
 	return 1;

@@ -70,6 +70,8 @@ public:
 	int Process(std::vector<CRegister> &Register,std::vector<CMemory> &Memory, std::vector<CMemory> &Cache)
 	{
 		std::cout << "-------------------------------------------------------------------" << std::endl;
+		std::cout << "Before processing, the register is :     ";
+		Register[Reg1].Print();
 		// initilal 
 		int c = 1;
 		// operate the value from the cache or memory, judge the miss or hit
@@ -233,7 +235,7 @@ public:
 			{
 				JumpToTarget = true;
 				c = c + 1;
-				std::cout << "Take branch cost 1 cycle delay" << std::endl;
+				std::cout << "Take branch cost 1 cycle delay." << std::endl;
 			}
 			else
 			{
@@ -270,7 +272,7 @@ public:
 		}
 
 		//print the register 1
-		std::cout << "After process the register update:     ";
+		std::cout << "After processing, the register update:     ";
 		Register[Reg1].Print();
 		std::cout << "-------------------------------------------------------------------"<<std::endl;
 		// return the cylces;
