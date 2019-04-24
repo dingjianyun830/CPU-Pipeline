@@ -353,7 +353,7 @@ void FiveStage()
 int main()
 {
 	// read the file to load the instruction
-	string m_nFileName = "test1.txt";
+	string m_nFileName = "test4.txt";
 	ifstream m_nFp(m_nFileName);
 	if (!m_nFp.is_open())
 	{

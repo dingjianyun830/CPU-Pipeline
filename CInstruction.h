@@ -101,7 +101,7 @@ public:
 			}
 			else if (Cache[idx2].GetIdx() != idx1)
 			{
-				std::cout << "Miss: a dealy for 10 cycles" << std::endl;
+				std::cout << "Miss: a delay for 10 cycles" << std::endl;
 				// write the cache to the memory
 				Memory[Cache[idx2].GetIdx()] = Cache[idx2];
 				// copy memory to the cache
@@ -128,13 +128,19 @@ public:
 			std::cout << "Write the value from register to cache.\n";
 			Register[Reg1].Print();
 			Cache[idx2].Print();
-			if (Cache[idx2].isEmpty() == true)//hit
+			if (Cache[idx2].isEmpty() == true)//miss
 			{
-				// write the value in the cache
-				Cache[idx2].SetIdx(idx1);
+				std::cout << "Miss: a delay for 10 cycles" << std::endl;
+				// the address doesnot exist in the cache.
+				// write allocate: load the address first and write it
+					
+				// copy memory to the cache
+				Cache[idx2] = Memory[idx1];
+
 				Cache[idx2].SetValue(Register[Reg1].GetValue());
 				Cache[idx2].setEmpty(false);
-				hit = true;
+				c = c + 10;
+				hit = false;
 			}
 			else if (Cache[idx2].GetIdx() == idx1)//hit
 			{
